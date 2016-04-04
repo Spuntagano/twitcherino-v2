@@ -1,20 +1,18 @@
 import React from 'react';
 import express from 'express';
 import createLocation from 'history/lib/createLocation';
-import {Router, Route, match, RoutingContext } from 'react-router';
+import {Router, Route, match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from '../../reducers';
 import routes from '../../routes';
 
 function getRootComponent(renderProps) {
-  let component = null;
-
   const store = createStore(reducers);
 
-  component = (
+  let component = (
     <Provider store={store}>
-      {() => <RoutingContext {...renderProps} />}
+      <RouterContext {...renderProps} />
     </Provider>
   );
 

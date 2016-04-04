@@ -1,4 +1,5 @@
 import React from 'react';
+import reactDOMServer from 'react-dom/server';
 import CONSTS from '../utils/consts';
 
 export default class Html extends React.Component {
@@ -18,7 +19,7 @@ export default class Html extends React.Component {
         <script dangerouslySetInnerHTML={{__html: 'window.__INITIAL_STATE__ = ' + initialState}}></script>
       </head>
       <body>
-        <div id="react-view" dangerouslySetInnerHTML={{__html: React.renderToString(this.props.component)}}></div>
+        <div id="react-view" dangerouslySetInnerHTML={{__html: reactDOMServer.renderToString(this.props.component)}}></div>
         <script src="assets/bundle.js"></script>
       </body>
       </html>

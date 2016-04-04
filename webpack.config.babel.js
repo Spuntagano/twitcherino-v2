@@ -1,24 +1,24 @@
-var path = require('path');
-var webpack = require ('webpack');
-var DEV_SERVER_PORT = 3001;
-var env = process.env.NODE_ENV;
+import path from'path';
+import webpack from 'webpack';
+import CONSTS from './src/utils/consts';
 
-var entry = ['./root'];
-var publicPath = '/assets/';
-var plugins = [];
+const env = process.env.NODE_ENV;
+
+let entry = ['./root'];
+let publicPath = '/assets/';
+let plugins = [];
 
 if (env === 'development'){
-	var entry = [	
-					'./root',
-			 		'webpack-dev-server/client?http://localhost:' + DEV_SERVER_PORT,
-  			 		'webpack/hot/only-dev-server',
-  				];
-	var publicPath = 'http://localhost:'+ DEV_SERVER_PORT +'/assets/';
-	var plugins = [new webpack.HotModuleReplacementPlugin()];
-
+	entry = [	
+				'./root',
+		 		'webpack-dev-server/client?http://localhost:' + CONSTS.DEV_SERVER_PORT,
+		 		'webpack/hot/only-dev-server',
+			];
+	publicPath = 'http://localhost:'+ CONSTS.DEV_SERVER_PORT +'/assets/';
+	plugins = [new webpack.HotModuleReplacementPlugin()];
 }
 
-module.exports = {
+export default {
 	context: path.resolve('src'),
 	entry: entry,
 	output: {
@@ -64,4 +64,4 @@ module.exports = {
 	resolve: {
 		extensions: ['', '.js', '.jsx']
 	}
-}
+};

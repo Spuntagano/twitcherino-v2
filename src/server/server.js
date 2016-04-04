@@ -1,18 +1,18 @@
 import React from 'react';
+import reactDOMServer from 'react-dom/server';
 import express from 'express';
 import webpack from 'webpack';
 import routing from './middlewares/routing';
 import Html from '../components/html';
-import webpackConfig from '../../webpack.config';
+import webpackConfig from '../../webpack.config.babel';
 import webpackDevServer from 'webpack-dev-server';
+import CONSTS from '../utils/consts';
+import proxy from 'proxy-middleware';
+import url from 'url';
 
-const DEV_SERVER_PORT = 3001;
 const compiler = webpack(webpackConfig);
 const app = express();
 const env = process.env.NODE_ENV;
-
-import proxy from 'proxy-middleware';
-import url from 'url';
 
 if (env === 'development'){
     const server = new webpackDevServer(compiler, {
@@ -23,9 +23,10 @@ if (env === 'development'){
         publicPath: "/assets/",
         stats: { colors: true }
     });
-    server.listen(DEV_SERVER_PORT, "localhost", function() {});
+    server.listen(CONSTS.DEV_SERVER_PORT, "localhost", function() {});
+    console.log('Dev server listening on ', CONSTS.DEV_SERVER_PORT);
 
-    app.use('/assets', proxy(url.parse('http://localhost:'+ DEV_SERVER_PORT +'/assets')));
+    app.use('/assets', proxy(url.parse('http://localhost:'+ CONSTS.DEV_SERVER_PORT +'/assets')));
 }
 
 app.use('/assets', express.static(__dirname + '/../../dist/public'));
@@ -33,7 +34,7 @@ app.use('/assets', express.static(__dirname + '/../../dist/public'));
 app.use((req, res) => {
   routing(req, res)
   .then((routingReturn) => {
-      res.send('<!DOCTYPE html>\n' + React.renderToString(<Html component={routingReturn.component} initialState={routingReturn.initialState} />));
+      res.send('<!DOCTYPE html>\n' + reactDOMServer.renderToString(<Html component={routingReturn.component} initialState={routingReturn.initialState} />));
   });
 });
 

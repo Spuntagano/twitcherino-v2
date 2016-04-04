@@ -1,15 +1,11 @@
-require('babel-register')({
-  presets: [ 'es2015', 'react', 'stage-0' ]
-});
+import server from "./src/server/server";
+import express from "express";
+import CONSTS from "./src/utils/consts";
 
-var server = require("./src/server/server");
-var express = require("express");
-var CONSTS = require("./src/utils/consts");
-
-server.default.listen(CONSTS.default.APP_PORT, function(e){
+server.listen(CONSTS.APP_PORT, function(e){
   if(e){
     console.error(e);
+  } else{
+  	console.log('Server listening on ', CONSTS.APP_PORT);
   }
-
-  console.log('Server listening on ', CONSTS.default.APP_PORT);
 });
