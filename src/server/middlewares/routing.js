@@ -6,9 +6,11 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from '../../reducers';
 import routes from '../../routes';
+import configureStore from '../../configure-store';
 
 function getRootComponent(renderProps) {
-  const store = createStore(reducers);
+
+  const store = configureStore();
 
   let component = (
     <Provider store={store}>

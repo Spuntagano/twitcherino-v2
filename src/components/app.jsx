@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { showStream } from '../actions/app-actions';
+import { fetchStreamsIfNeeded } from '../actions/streams-actions';
 
 class App extends React.Component {
 
@@ -11,20 +11,21 @@ class App extends React.Component {
 
 	componentDidMount() {
 	  const { dispatch } = this.props;
-	  dispatch( showStream() );
+	  dispatch( fetchStreamsIfNeeded() );
 	}
 
   	render() {
-		const { app } = this.props;
+		const { streams } = this.props;
+		console.log(streams);
 
 		return (
 			<div>
 				<h1>Twitcherino</h1>
-				{app.streamId}
+				{streams.streamId}
 	  		</div>
 		);
   	}
 }
 
-export default connect(state => ({ app: state.app }))(App);
+export default connect(state => ({ streams: state.streams }))(App);
 

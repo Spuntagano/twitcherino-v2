@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { app } from './app-reducer';
+import { streams } from './streams-reducer';
 
 let reducers = combineReducers({
-  app
+  streams
 });
 
 export default reducers;
