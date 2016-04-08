@@ -16,7 +16,7 @@ function requestStreams() {
 function receiveStreams(json) {
   return {
     type: CONSTS.ACTIONS.RECEIVE_STREAMS,
-    streamId: json.streams[0]._id,
+    streams: json.streams,
     receivedAt: Date.now()
   };
 }

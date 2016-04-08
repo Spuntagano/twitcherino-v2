@@ -1,12 +1,15 @@
 import path from'path';
 import webpack from 'webpack';
 import CONSTS from './src/utils/consts';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const env = process.env.NODE_ENV;
 
 let entry = ['./root'];
 let publicPath = '/assets/';
-let plugins = [];
+let plugins = [new ExtractTextPlugin("style.css", {
+            		allChunks: true
+        	  })];
 
 if (env === 'development'){
 	entry = [	
@@ -15,7 +18,12 @@ if (env === 'development'){
 		 		'webpack/hot/only-dev-server',
 			];
 	publicPath = 'http://localhost:'+ CONSTS.DEV_SERVER_PORT +'/assets/';
-	plugins = [new webpack.HotModuleReplacementPlugin()];
+	plugins = [
+		new webpack.HotModuleReplacementPlugin(),
+		new ExtractTextPlugin("style.css", {
+            		allChunks: true
+        	  })
+	];
 }
 
 export default {
@@ -44,17 +52,10 @@ export default {
 			},
 			{
 				test: /\.css$/,
-				exclude: /node_modules/,
-				loader: "style-loader!css-loader!autoprefixer-loader"
+				loader: ExtractTextPlugin.extract("style-loader", "css-loader")
 			},
 			{
-				test: /\.scss$/,
-				exclude: /node_modules/,
-				loader: "style-loader!css-loader!autoprefixer-loader!sass-loader"
-			},
-			{
-				test: /\.(png|jpg|ttf|eot)$/, 
-				exclude: /node_modules/,
+				test: /\.(png|jpg|ttf|eot|woff|woff2)$/, 
 				loader: 'url-loader?limit=1000'
 			}
 		]

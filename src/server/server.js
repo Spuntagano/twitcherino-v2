@@ -9,6 +9,7 @@ import webpackDevServer from 'webpack-dev-server';
 import CONSTS from '../utils/consts';
 import proxy from 'proxy-middleware';
 import url from 'url';
+import Webpack_isomorphic_tools from 'webpack-isomorphic-tools';
 
 const compiler = webpack(webpackConfig);
 const app = express();
@@ -30,6 +31,11 @@ if (env === 'development'){
 }
 
 app.use('/assets', express.static(__dirname + '/../../dist/public'));
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  next(err);
+});
 
 app.use((req, res) => {
   routing(req, res)

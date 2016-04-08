@@ -20,7 +20,7 @@ export function streams(state = initialState, action = '') {
       	...state,
         isFetching: false,
         didInvalidate: false,
-        streamId: action.streamId,
+        streams: action.streams,
         lastUpdated: action.receivedAt
       };
     default:
