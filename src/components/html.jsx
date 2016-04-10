@@ -21,6 +21,8 @@ export default class Html extends React.Component {
       </head>
       <body className="grey darken-4 grey-text text-lighten-2">
         <div id="react-view" dangerouslySetInnerHTML={{__html: reactDOMServer.renderToString(this.props.component)}}></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script src="assets/bundle.js"></script>
       </body>

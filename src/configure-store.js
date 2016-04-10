@@ -9,7 +9,10 @@ export default function configureStore(initialState) {
   return createStore(
   	  reducers,
   	  {
-        streams: []
+        streams: {
+          numberStreamsFetched: 0,
+          isFetching: false
+        },
       },
   	  compose(
   		  applyMiddleware(

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import EllipsisText  from 'react-ellipsis-text';
+import radium from 'radium';
+import ellipsis from 'ellipsis-overflow';
 
 class Stream extends React.Component {
 
@@ -8,30 +9,31 @@ class Stream extends React.Component {
 	  	super(props);
 	}
 
+	componentDidMount() {
+		this.refs.ellipsis.style.overflowY = 'scroll';
+		ellipsis(this.refs.ellipsis);
+		this.refs.ellipsis.style.overflowY = 'hidden';
+	}
+
   	render() {
 		const { stream } = this.props;
 
-		const imgStyle = {
-			width: '100%',
-		 	height: 'auto'
+		const style = {
+			imgStyle: {
+				width: '100%',
+		 		height: 'auto'
+		 	}
 		};
-
-		const h3Style = {
-			height: '50px',
-			overflow: 'hidden',
-			fontSize: '1rem',
-			margin: '0.46rem 0 1.168rem 0'
-		};
-
+		
 		return (
-	  		<div style={{padding: '0 10px'}} className="col-md-2">
+	  		<div style={{padding: '0 10px'}} className="col s12 m6 l2">
 		  		<div className="card">
 		  		  <div className="card-image waves-effect waves-block waves-light">
-		  		    <img src={stream.preview.medium} alt={stream.channel.display_name} width="320" height="180" />
+		  		    <img style={style.imgStyle} src={stream.preview.medium} alt={stream.channel.display_name} width="320" height="180" />
 		  		  </div>
 		  		  <div style={{padding: '10px'}} className="card-content grey darken-3">
-		  		    <div style={{minHeight: '44px'}} className="light-text lighten-2">
-		  		    	<EllipsisText text={stream.channel.status} length={'60'} />
+		  		    <div ref="ellipsis" style={{height: '44px', display: 'inline-block'}} className="light-text lighten-2">
+		  		    	{stream.channel.status}
 		  		    </div>
 		  		  </div>
 		  		</div>
@@ -40,5 +42,5 @@ class Stream extends React.Component {
   	}
 }
 
-export default Stream;
+export default radium(Stream);
 

@@ -8,11 +8,14 @@ import { Provider } from 'react-redux';
 import reducers from './reducers';
 import routes from './routes';
 import configureStore from './configure-store';
+import { StyleRoot } from 'radium';
 
 const store = configureStore();
 
 reactDOM.render((
-  <Provider store={store}>
-    <Router history={browserHistory}>{routes}</Router>
-  </Provider>
+	<StyleRoot>
+		<Provider store={store}>
+    		<Router history={browserHistory}>{routes}</Router>
+ 	 	</Provider>
+    </StyleRoot>
 ), document.getElementById( CONSTS.APP_DOM_CONTAINER ));

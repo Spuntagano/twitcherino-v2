@@ -12,12 +12,12 @@
   "dependencies": {
     "babel-register": "^6.7.2",
     "bootstrap-grid": "^1.1.1",
+    "ellipsis-overflow": "^1.0.6",
     "express": "^4.13.3",
     "history": "^1.11.1",
     "immutable": "^3.7.5",
     "lodash": "^4.7.0",
     "lodash.isplainobject": "^3.0.0",
-    "materialize-css": "^0.97.6",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-ellipsis-text": "^0.2.0",
@@ -26,7 +26,8 @@
     "redux": "^3.3.1",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.0.1",
-    "superagent": "^1.8.3"
+    "superagent": "^1.8.3",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",

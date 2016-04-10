@@ -7,15 +7,18 @@ import { createStore } from 'redux';
 import reducers from '../../reducers';
 import routes from '../../routes';
 import configureStore from '../../configure-store';
+import { StyleRoot } from 'radium';
 
 function getRootComponent(renderProps) {
 
   const store = configureStore();
 
   let component = (
-    <Provider store={store}>
-      <RouterContext {...renderProps} />
-    </Provider>
+    <StyleRoot>
+        <Provider store={store}>
+            <RouterContext {...renderProps} />
+        </Provider>
+    </StyleRoot>
   );
 
   return {
