@@ -39,7 +39,7 @@ export default function(req, res) {
       }else if (renderProps == null) {
         res.status(404).send('Not found');
       }
-
+      
       resolve(getRootComponent(renderProps));
     });
   });

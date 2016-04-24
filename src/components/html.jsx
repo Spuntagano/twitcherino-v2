@@ -24,7 +24,7 @@ export default class Html extends React.Component {
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-        <script src="assets/bundle.js"></script>
+        <script src="/assets/bundle.js"></script>
       </body>
       </html>
     );

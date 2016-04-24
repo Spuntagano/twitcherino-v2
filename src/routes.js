@@ -5,12 +5,15 @@ import Home from './components/pages/home';
 import GamesDirectory from './components/pages/gamesDirectory';
 import StreamsByGame from './components/pages/streamsByGame';
 import Directory from './components/pages/directory';
+import GameRoot from './components/gameRoot';
 
 export default (
 	<Route path="/" component={App}>
 		<IndexRoute component={Home} />
-		<Route path="directory" component={Directory}/>
-		<Route path="games" component={GamesDirectory}/>
-		<Route path="/games/:gameId" component={StreamsByGame}/>
+		<Route path="/directory" component={Directory}/>
+		<Route path="/games" component={GameRoot}>
+			<IndexRoute component={GamesDirectory} />
+			<Route path="/games/:gameId" component={StreamsByGame}/>
+		</Route>
 	</Route>
 );

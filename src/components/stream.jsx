@@ -32,7 +32,7 @@ class Stream extends React.Component {
 		  		    <img style={style.imgStyle} src={stream.preview.medium} alt={stream.channel.display_name} width="320" height="180" />
 		  		  </div>
 		  		  <div style={{padding: '10px'}} className="card-content grey darken-3">
-		  		    <div ref="ellipsis" style={{height: '44px', display: 'inline-block'}} className="light-text lighten-2">
+		  		    <div ref="ellipsis" style={{height: '44px', display: 'inline-block'}} className="grey-text text-lighten-1">
 		  		    	{stream.channel.status}
 		  		    </div>
 		  		  </div>

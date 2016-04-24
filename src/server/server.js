@@ -10,10 +10,21 @@ import CONSTS from '../utils/consts';
 import proxy from 'proxy-middleware';
 import url from 'url';
 import Webpack_isomorphic_tools from 'webpack-isomorphic-tools';
+import routes from './routes';
+import passport from './middlewares/passport';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import cookieSession from 'cookie-session';
+import AWS from 'aws-sdk';
 
 const compiler = webpack(webpackConfig);
 const app = express();
 const env = process.env.NODE_ENV;
+
+AWS.config.update({
+  region: "us-west-2",
+  endpoint: "dynamodb.us-west-2.amazonaws.com"
+});
 
 if (env === 'development'){
     const server = new webpackDevServer(compiler, {
@@ -30,12 +41,19 @@ if (env === 'development'){
     app.use('/assets', proxy(url.parse('http://localhost:'+ CONSTS.DEV_SERVER_PORT +'/assets')));
 }
 
-app.use('/assets', express.static(__dirname + '/../../dist/public'));
-
 app.use((err, req, res, next) => {
   console.error(err.stack);
   next(err);
 });
+
+app.use('/assets', express.static(__dirname + '/../../dist/public'));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(cookieSession({secret:"FLDS432JB432HJLHFBGDSJKLGFD"}));
+
+passport(app);
+routes(app);
 
 app.use((req, res) => {
   routing(req, res)

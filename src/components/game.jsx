@@ -33,7 +33,7 @@ class Game extends React.Component {
 			  		    <img style={style.imgStyle} src={game.game.box.large} alt={game.game.name} width="297" height="415" />
 			  		  </div>
 			  		  <div style={{padding: '10px'}} className="card-content grey darken-3">
-			  		    <div ref="ellipsis" style={{height: '44px', display: 'inline-block'}} className="light-text lighten-2">
+			  		    <div ref="ellipsis" style={{height: '44px', display: 'inline-block'}} className="grey-text text-lighten-1">
 			  		    	{game.game.name}
 			  		    </div>
 			  		  </div>
