@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchGamesIfNeeded, clearGameList } from '../../actions/games-actions';
-import Games from '../games';
+import GameList from '../game-list';
 import _ from 'underscore';
-import CONSTS from '../../utils/consts';
+import { onScroll, removeOnScroll } from '../../utils/on-scroll';
 
 class GamesDirectory extends React.Component {
 
@@ -19,22 +19,21 @@ class GamesDirectory extends React.Component {
 
 	componentDidUpdate() {
 		const { dispatch, games } = this.props;
-		window.onscroll = _.debounce(function(ev) {
-		    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - CONSTS.SCROLL_LOAD_OFFSET) {
-		        dispatch( fetchGamesIfNeeded(games.numberGamesFetched) );
-		    }
-		}, CONSTS.DEBONCE_TIMER);
+		onScroll( () => {
+	        dispatch( fetchGamesIfNeeded(games.numberGamesFetched) );
+		});
 	}
 
 	componentWillUnmount() {
 		const { dispatch } = this.props;
+		removeOnScroll();
 		dispatch( clearGameList() );
 	}
 
 	renderGames() {
 		const { games } = this.props;
 		if (!_.isUndefined(games.gameList)){
-			return (<Games games={games.gameList} />);
+			return (<GameList games={games.gameList} />);
 		}
 	}
 

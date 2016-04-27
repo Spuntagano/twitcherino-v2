@@ -1,10 +1,12 @@
 import CONSTS from '../utils/consts';
 import request from 'superagent';
+import mergeArraysOfUniqueObjects from '../utils/merge-arrays-of-unique-objects';
 import _ from 'underscore';
 
 let initialState = {
   numberGamesFetched: 0,
-  isFetching: false
+  isFetching: false,
+  gameList: []
 };
 
 export function games(state = initialState, action = '') {
@@ -21,27 +23,10 @@ export function games(state = initialState, action = '') {
          numberGamesFetched: 0
        };
     case CONSTS.ACTIONS.RECEIVE_GAMES:
-      let gameList = [];
-      if (!_.isUndefined(state.gameList)){
-        gameList = state.gameList;
-      }
-
-      action.gameList.map((newGame) =>{
-        let found = false;
-        gameList.map((oldGame) => {
-          if (newGame.game._id === oldGame.game._id){
-            found = true;
-          }
-        });
-        if (!found){
-          gameList.push(newGame);
-        }
-      });
-
       return {
       	...state,
         isFetching: false,
-        gameList: gameList,
+        gameList: mergeArraysOfUniqueObjects(action.gameList, state.gameList, 'game', '_id'),
         lastUpdated: action.receivedAt,
         numberGamesFetched: state.numberGamesFetched + CONSTS.NUMBER_STREAM_FETCH
       };

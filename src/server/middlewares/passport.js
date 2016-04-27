@@ -5,7 +5,8 @@ import _ from 'underscore';
 
 export default function(app) {
 	app.use(passport.initialize());
-	const db = new AWS.DynamoDB.DocumentClient();
+	app.use(passport.session());
+	const dc = new AWS.DynamoDB.DocumentClient();
 
 	passport.use(new TwitchtvStrategy.Strategy({
 		clientID: 'ooq4s9m1tk6rhws89qgy6xlhvxnnm1k',
@@ -15,7 +16,6 @@ export default function(app) {
 		passReqToCallback : true
 	},
 	(req, accessToken, refreshToken, profile, done) => {
-
 		const params = {
 		    TableName: 'Users',
 		    Key:{
@@ -23,16 +23,16 @@ export default function(app) {
 		    },
 		    Item:{
 		    	'userId': 1,
-		    	'twitchUsername': profile.username
+		    	'twitchUsername': profile.username,
+		    	'accessToken': accessToken
 		    }
 		};
 
-		db.get(params, function(err, data) {
+		dc.get(params, function(err, data) {
 		    if (err) {
 		    	done(null, false);
 		    } else if (_.isEmpty(data)){
-	        	db.put(params, function(err, data) {
-	        		console.log(err);
+	        	dc.put(params, function(err, data) {
 	        	    if (err) {
 	        	        done(null, false);
 	        	    } else {

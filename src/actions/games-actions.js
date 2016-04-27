@@ -36,7 +36,7 @@ function fetchGames(numberGamesFetched) {
   };
 }
 
-function shouldFetchGames(state, subreddit) {
+function shouldFetchGames(state) {
   if (state.games.isFetching) {
     return false;
   } else {

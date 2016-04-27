@@ -1,23 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import Game from './game';
+import StreamCard from './stream-card';
 import _ from 'underscore';
 
-class Games extends React.Component {
+class Streams extends React.Component {
 
 	constructor(props) {
 	  	super(props);
 	}
 
   	render() {
-		const { games } = this.props;
+		const { streams } = this.props;
 
 		return (
 			<div className="container-fluid">
 				<div className="row">
-					{[...games].map((game) => {
-						return (<Game key={game.game._id} game={game} />);
+					{[...streams].map((stream) => {
+						return (<StreamCard key={stream.channel._id} stream={stream} />);
 					})}
 		  		</div>
 	  		</div>
@@ -25,5 +25,5 @@ class Games extends React.Component {
   	}
 }
 
-export default Games;
+export default Streams;
 

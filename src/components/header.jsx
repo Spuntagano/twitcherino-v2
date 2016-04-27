@@ -13,8 +13,9 @@ class Header extends React.Component {
 			  <div className="nav-wrapper">
 			    <Link to="/" style={{padding: '0 10px'}} className="brand-logo waves-effect waves-block waves-light">Twitcherino</Link>
 			    <ul className="right hide-on-med-and-down">
-			    	<li><Link to="/directory" className="waves-effect waves-block waves-light">Directory</Link></li>
+			    	<li><Link to="/streams" className="waves-effect waves-block waves-light">Streams</Link></li>
 			    	<li><Link to="/games" className="waves-effect waves-block waves-light">Games</Link></li>
+			    	<li><Link to="/follows" className="waves-effect waves-block waves-light">Follows</Link></li>
 			    </ul>
 			  </div>
 			</nav>

@@ -1,4 +1,6 @@
 import passport from 'passport';
+import { getUser } from './api/user.js';
+import { getFollows } from './api/gateway.js';
 
 export default function(app) {
 	app.get('/auth/twitch', passport.authenticate('twitch'));
@@ -7,5 +9,8 @@ export default function(app) {
 		passport.authenticate('twitch', { failureRedirect: "/" }), (req, res) => {
 			res.redirect('/');
 		}
-	)
+	);
+
+	app.get('/api/user', getUser);
+	app.get('/api/follows', getFollows);
 }

@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchStreamsIfNeeded, clearStreamList } from '../../actions/streams-actions';
-import Streams from '../streams';
+import StreamList from '../stream-list';
+import { onScroll, removeOnScroll } from '../../utils/on-scroll';
 import _ from 'underscore';
-import CONSTS from '../../utils/consts';
 
 class Directory extends React.Component {
 
@@ -19,22 +19,21 @@ class Directory extends React.Component {
 
 	componentDidUpdate() {
 		const { dispatch, streams } = this.props;
-		window.onscroll = _.debounce(function(ev) {
-		    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - CONSTS.SCROLL_LOAD_OFFSET) {
-		        dispatch( fetchStreamsIfNeeded(streams.numberStreamsFetched) );
-		    }
-		}, CONSTS.DEBONCE_TIMER);
+		onScroll( () => {
+	        dispatch( fetchStreamsIfNeeded(streams.numberStreamsFetched) );
+		});
 	}
 
 	componentWillUnmount() {
 		const { dispatch } = this.props;
+		removeOnScroll();
 		dispatch( clearStreamList() );
 	}
 
 	renderStreams() {
 		const { streams } = this.props;
 		if (!_.isUndefined(streams.streamList)){
-			return (<Streams streams={streams.streamList} />);
+			return (<StreamList streams={streams.streamList} />);
 		}
 	}
 

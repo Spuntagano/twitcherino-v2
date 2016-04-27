@@ -2,18 +2,20 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './components/app';
 import Home from './components/pages/home';
-import GamesDirectory from './components/pages/gamesDirectory';
-import StreamsByGame from './components/pages/streamsByGame';
-import Directory from './components/pages/directory';
-import GameRoot from './components/gameRoot';
+import Games from './components/pages/games';
+import GameStreams from './components/pages/game-streams';
+import Streams from './components/pages/streams';
+import Follows from './components/pages/follows';
+import GameRoot from './components/game-root';
 
 export default (
 	<Route path="/" component={App}>
 		<IndexRoute component={Home} />
-		<Route path="/directory" component={Directory}/>
+		<Route path="/streams" component={Streams}/>
+		<Route path="/follows" component={Follows}/>
 		<Route path="/games" component={GameRoot}>
-			<IndexRoute component={GamesDirectory} />
-			<Route path="/games/:gameId" component={StreamsByGame}/>
+			<IndexRoute component={Games} />
+			<Route path="/games/:gameId" component={GameStreams}/>
 		</Route>
 	</Route>
 );

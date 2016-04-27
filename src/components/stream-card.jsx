@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import radium from 'radium';
-import ellipsis from 'ellipsis-overflow';
+import ellipsis from '../utils/ellipsis';
 
 class Stream extends React.Component {
 
@@ -10,9 +10,7 @@ class Stream extends React.Component {
 	}
 
 	componentDidMount() {
-		this.refs.ellipsis.style.overflowY = 'scroll';
 		ellipsis(this.refs.ellipsis);
-		this.refs.ellipsis.style.overflowY = 'hidden';
 	}
 
   	render() {

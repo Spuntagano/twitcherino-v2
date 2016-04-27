@@ -50,7 +50,21 @@ function fetchStreamsByGame(numberStreamsFetched, game) {
   };
 }
 
-function shouldFetchStreams(state, subreddit) {
+function fetchFollowedStreams(numberStreamsFetched) {
+  return (dispatch) => {
+    dispatch(requestStreams());
+    return request
+    .get('/api/follows')
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+      if (!err){
+        dispatch(receiveStreams(JSON.parse(res.text), numberStreamsFetched));
+      }
+    });
+  };
+}
+
+function shouldFetchStreams(state) {
   if (state.streams.isFetching) {
     return false;
   } else {
@@ -70,6 +84,14 @@ export function fetchStreamsByGameIfNeeded(numberStreamsFetched, game) {
   return (dispatch, getState) => {
       if (shouldFetchStreams(getState())) {
           return dispatch(fetchStreamsByGame(numberStreamsFetched, game));
+      }
+  };
+}
+
+export function fetchFollowedStreamsIfNeeded(numberStreamsFetched) {
+  return (dispatch, getState) => {
+      if (shouldFetchStreams(getState())) {
+          return dispatch(fetchFollowedStreams(numberStreamsFetched));
       }
   };
 }
