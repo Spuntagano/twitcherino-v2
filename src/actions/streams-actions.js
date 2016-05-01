@@ -26,7 +26,11 @@ function fetchStreams(numberStreamsFetched) {
   return (dispatch) => {
     dispatch(requestStreams());
     return request
-	  .get('https://api.twitch.tv/kraken/streams?limit='+ CONSTS.NUMBER_STREAM_FETCH +'&offset='+numberStreamsFetched)
+	  .get('/api/gateway/streams')
+    .query({
+      limit: CONSTS.NUMBER_STREAM_FETCH,
+      offset: numberStreamsFetched
+    })
 	  .set('Accept', 'application/json')
 	  .end((err, res) => {
 	  	if (!err){
@@ -40,7 +44,12 @@ function fetchStreamsByGame(numberStreamsFetched, game) {
   return (dispatch) => {
     dispatch(requestStreams());
     return request
-    .get('https://api.twitch.tv/kraken/streams?game='+ game +'&limit='+ CONSTS.NUMBER_STREAM_FETCH +'&offset='+numberStreamsFetched)
+    .get('/api/gateway/streams')
+    .query({
+      game: game,
+      limit: CONSTS.NUMBER_STREAM_FETCH,
+      offset: numberStreamsFetched
+    })
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (!err){
@@ -54,11 +63,15 @@ function fetchFollowedStreams(numberStreamsFetched) {
   return (dispatch) => {
     dispatch(requestStreams());
     return request
-    .get('/api/follows')
+    .get('/api/gateway/follows')
+    .query({
+      limit: CONSTS.NUMBER_STREAM_FETCH,
+      offset: numberStreamsFetched
+    })
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (!err){
-        dispatch(receiveStreams(JSON.parse(res.text), numberStreamsFetched));
+        dispatch(receiveStreams(res.body, numberStreamsFetched));
       }
     });
   };

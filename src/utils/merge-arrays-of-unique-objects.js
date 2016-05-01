@@ -1,10 +1,10 @@
-export default function(newList, oldList, firstKey, secondKey) {
+export default function(newList, oldList, key) {
 	let list = oldList;
 
 	newList.map((newObj) =>{
 		let found = false;
 		oldList.map((oldObj) => {
-			if (newObj[firstKey][secondKey] === oldObj[firstKey][secondKey]){
+			if (newObj[key] === oldObj[key]){
 		    	found = true;
 		  	}
 		});

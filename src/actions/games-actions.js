@@ -16,7 +16,7 @@ export function clearGameList() {
 function receiveGames(json, numberGamesFetched) {
   return {
     type: CONSTS.ACTIONS.RECEIVE_GAMES,
-    gameList: json.top,
+    gameList: json.games,
     receivedAt: Date.now(),
     numberGamesFetched
   };
@@ -26,7 +26,11 @@ function fetchGames(numberGamesFetched) {
   return (dispatch) => {
     dispatch(requestGames());
     return request
-	  .get('https://api.twitch.tv/kraken/games/top?limit='+ CONSTS.NUMBER_STREAM_FETCH +'&offset='+numberGamesFetched)
+	  .get('/api/gateway/games')
+    .query({
+      limit: CONSTS.NUMBER_STREAM_FETCH,
+      offset: numberGamesFetched
+    })
 	  .set('Accept', 'application/json')
 	  .end((err, res) => {
 	  	if (!err){

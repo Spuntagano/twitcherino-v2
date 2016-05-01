@@ -17,7 +17,7 @@ class Games extends React.Component {
 			<div className="container-fluid">
 				<div className="row">
 					{[...games].map((game) => {
-						return (<GameCard key={game.game._id} game={game} />);
+						return (<GameCard key={game.id} game={game} />);
 					})}
 		  		</div>
 	  		</div>

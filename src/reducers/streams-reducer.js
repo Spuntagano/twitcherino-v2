@@ -26,7 +26,7 @@ export function streams(state = initialState, action = '') {
       return {
       	...state,
         isFetching: false,
-        streamList: mergeArraysOfUniqueObjects(action.streamList, state.streamList, 'channel', '_id'),
+        streamList: mergeArraysOfUniqueObjects(action.streamList, state.streamList, 'id'),
         lastUpdated: action.receivedAt,
         numberStreamsFetched: state.numberStreamsFetched + CONSTS.NUMBER_STREAM_FETCH
       };

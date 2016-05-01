@@ -26,7 +26,7 @@ export function games(state = initialState, action = '') {
       return {
       	...state,
         isFetching: false,
-        gameList: mergeArraysOfUniqueObjects(action.gameList, state.gameList, 'game', '_id'),
+        gameList: mergeArraysOfUniqueObjects(action.gameList, state.gameList, 'id'),
         lastUpdated: action.receivedAt,
         numberGamesFetched: state.numberGamesFetched + CONSTS.NUMBER_STREAM_FETCH
       };

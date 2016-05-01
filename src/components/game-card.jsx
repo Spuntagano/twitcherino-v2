@@ -25,14 +25,14 @@ class Game extends React.Component {
 		
 		return (
 	  		<div style={{padding: '0 10px'}} className="col s12 m6 l2">
-	  			<Link to={'/games/' + game.game.name} className="waves-effect waves-block waves-light">
+	  			<Link to={'/games/' + game.name} className="waves-effect waves-block waves-light">
 			  		<div className="card">
 			  		  <div className="card-image">
-			  		    <img style={style.imgStyle} src={game.game.box.large} alt={game.game.name} width="297" height="415" />
+			  		    <img style={style.imgStyle} src={game.box} alt={game.name} width="297" height="415" />
 			  		  </div>
 			  		  <div style={{padding: '10px'}} className="card-content grey darken-3">
 			  		    <div ref="ellipsis" style={{height: '44px', display: 'inline-block'}} className="grey-text text-lighten-1">
-			  		    	{game.game.name}
+			  		    	{game.name}
 			  		    </div>
 			  		  </div>
 			  		</div>
