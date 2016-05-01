@@ -28,6 +28,14 @@ export default function(app) {
 		    }
 		};
 
+		dc.put(params, function(err, data) {
+		    if (err) {
+		        done(null, false);
+		    } else {
+		        done(null, {...profile, accessToken, refreshToken});
+		    }
+		});
+/*
 		dc.get(params, function(err, data) {
 		    if (err) {
 		    	done(null, false);
@@ -42,7 +50,7 @@ export default function(app) {
 		    } else {
 		        done(null, profile);
 		    }
-		});
+		});*/
 	}));
 
 	passport.serializeUser( (user, done) => {

@@ -16,6 +16,7 @@ class Header extends React.Component {
 			    	<li><Link to="/streams" className="waves-effect waves-block waves-light">Streams</Link></li>
 			    	<li><Link to="/games" className="waves-effect waves-block waves-light">Games</Link></li>
 			    	<li><Link to="/follows" className="waves-effect waves-block waves-light">Follows</Link></li>
+			    	<li><a href="/auth/twitch" className="waves-effect waves-block waves-light">Login</a></li>
 			    </ul>
 			  </div>
 			</nav>
