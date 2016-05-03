@@ -7,6 +7,8 @@ import GameStreams from './components/pages/game-streams';
 import Streams from './components/pages/streams';
 import Follows from './components/pages/follows';
 import GameRoot from './components/game-root';
+import TwitchRoot from './components/twitch-root';
+import TwitchPlayer from './components/twitch-player';
 
 export default (
 	<Route path="/" component={App}>
@@ -16,6 +18,10 @@ export default (
 		<Route path="/games" component={GameRoot}>
 			<IndexRoute component={Games} />
 			<Route path="/games/:gameId" component={GameStreams}/>
+		</Route>
+		<Route path="/twitch" component={GameRoot}>
+			<IndexRoute component={TwitchRoot} />
+			<Route path="/twitch/:twitchChannel" component={TwitchPlayer}/>
 		</Route>
 	</Route>
 );

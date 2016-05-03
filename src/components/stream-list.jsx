@@ -14,7 +14,7 @@ class Streams extends React.Component {
 		const { streams } = this.props;
 
 		return (
-			<div className="container-fluid">
+			<div style={{marginTop: '15px'}} className="container-fluid">
 				<div className="row">
 					{[...streams].map((stream) => {
 						return (<StreamCard key={stream.id} stream={stream} />);

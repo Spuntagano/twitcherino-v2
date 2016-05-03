@@ -32,7 +32,7 @@ export default function(app) {
 		    if (err) {
 		        done(null, false);
 		    } else {
-		        done(null, {...profile, accessToken, refreshToken});
+		        done(null, profile);
 		    }
 		});
 /*

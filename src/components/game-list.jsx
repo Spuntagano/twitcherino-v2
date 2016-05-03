@@ -14,7 +14,7 @@ class Games extends React.Component {
 		const { games } = this.props;
 
 		return (
-			<div className="container-fluid">
+			<div style={{marginTop: '15px'}} className="container-fluid">
 				<div className="row">
 					{[...games].map((game) => {
 						return (<GameCard key={game.id} game={game} />);

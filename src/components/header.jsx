@@ -9,7 +9,7 @@ class Header extends React.Component {
 
   	render() {
 		return (
-			<nav className="green" style={{marginBottom: '15px'}}>
+			<nav className="green">
 			  <div className="nav-wrapper">
 			    <Link to="/" style={{padding: '0 10px'}} className="brand-logo waves-effect waves-block waves-light">Twitcherino</Link>
 			    <ul className="right hide-on-med-and-down">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-class GameRoot extends React.Component {
+class TwitchRoot extends React.Component {
 
 	constructor(props) {
 	  	super(props);
@@ -15,5 +15,5 @@ class GameRoot extends React.Component {
   	}
 }
 
-export default GameRoot;
+export default TwitchRoot;
 
