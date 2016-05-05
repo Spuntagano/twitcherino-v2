@@ -3,6 +3,18 @@ import AWS from 'aws-sdk';
 export function getUser(req, res){
 	const dc = new AWS.DynamoDB.DocumentClient();
 
+	let username = '';
+	if (req.user){
+		username = req.user.username;
+	}
+
+	if (!username){
+		res.send({
+			userLoggedIn: false
+		});
+		return;
+	}
+
 	const params = {
 	    TableName: 'Users',
 	    Key:{
@@ -10,7 +22,7 @@ export function getUser(req, res){
 	    },
 	    Item:{
 	    	'userId': 1,
-	    	'twitchUsername': req.user.username
+	    	'twitchUsername': username
 	    }
 	};
 
@@ -18,7 +30,10 @@ export function getUser(req, res){
 	    if (err) {
 	    	console.log(err);
 	    } else {
-	    	res.send(data.Item);
+	    	res.send({
+	    		userLoggedIn: true,
+	    		userInfo: data.Item
+	    	});
 	    }
 	});
 }

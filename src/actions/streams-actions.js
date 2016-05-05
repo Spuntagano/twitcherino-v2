@@ -16,7 +16,7 @@ export function clearStreamList() {
 function receiveStreams(json, numberStreamsFetched) {
   return {
     type: CONSTS.ACTIONS.RECEIVE_STREAMS,
-    streamList: json.streams,
+    streamList: json.streams || [],
     receivedAt: Date.now(),
     numberStreamsFetched
   };

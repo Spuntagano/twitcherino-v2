@@ -30,7 +30,6 @@ function fetchUser() {
 }
 
 function shouldFetchUser(state) {
-	console.log(state);
   if (state.user.isFetching) {
     return false;
   } else {

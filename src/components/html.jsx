@@ -8,7 +8,7 @@ export default class Html extends React.Component {
   }
 
   render() {
-    let initialState = JSON.stringify(this.props.initialState);
+    const initialState = JSON.stringify(this.props.initialState);
 
     return (
       <html>

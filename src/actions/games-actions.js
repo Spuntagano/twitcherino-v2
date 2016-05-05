@@ -16,7 +16,7 @@ export function clearGameList() {
 function receiveGames(json, numberGamesFetched) {
   return {
     type: CONSTS.ACTIONS.RECEIVE_GAMES,
-    gameList: json.games,
+    gameList: json.games || [],
     receivedAt: Date.now(),
     numberGamesFetched
   };

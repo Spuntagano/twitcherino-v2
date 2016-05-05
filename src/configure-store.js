@@ -8,7 +8,7 @@ const loggerMiddleware = createLogger();
 export default function configureStore(initialState) {
   return createStore(
   	  reducers,
-  	  {},
+  	  initialState,
   	  compose(
   		  applyMiddleware(
   		    thunkMiddleware,

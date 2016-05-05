@@ -8,10 +8,15 @@ import reducers from '../../reducers';
 import routes from '../../routes';
 import configureStore from '../../configure-store';
 import { StyleRoot } from 'radium';
+import _ from 'underscore';
 
-function getRootComponent(renderProps) {
+function getRootComponent(renderProps, userLoggedIn) {
 
-  const store = configureStore();
+  const store = configureStore({
+    user: {
+      userLoggedIn
+    }
+  });
 
   let component = (
     <StyleRoot>
@@ -29,6 +34,7 @@ function getRootComponent(renderProps) {
 
 export default function(req, res) {
   let location = createLocation(req.url);
+  const userLoggedIn = _.isObject(req.user);
 
   return new Promise( (resolve, reject) => {
     match({ routes, location }, (error, redirectLocation, renderProps) => {
@@ -39,8 +45,8 @@ export default function(req, res) {
       }else if (renderProps == null) {
         res.status(404).send('Not found');
       }
-      
-      resolve(getRootComponent(renderProps));
+
+      resolve(getRootComponent(renderProps, userLoggedIn));
     });
   });
 }

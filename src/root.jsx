@@ -10,7 +10,7 @@ import routes from './routes';
 import configureStore from './configure-store';
 import { StyleRoot } from 'radium';
 
-const store = configureStore();
+const store = configureStore({});
 
 reactDOM.render((
 	<StyleRoot>
