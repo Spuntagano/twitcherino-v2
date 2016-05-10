@@ -1,5 +1,6 @@
 prop types
-api error/empty response
+api error/empty response/unautenticated
 regroup config
 json formatting error
-user login check
+server auth redirect
+postUser

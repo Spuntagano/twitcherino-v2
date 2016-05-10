@@ -11,11 +11,12 @@ import configureStore from './configure-store';
 import { StyleRoot } from 'radium';
 
 const store = configureStore({});
+const userLoggedIn = store.getState().user && store.getState().user.userLoggedIn;
 
 reactDOM.render((
 	<StyleRoot>
 		<Provider store={store}>
-    		<Router history={browserHistory}>{routes}</Router>
+    		<Router history={browserHistory}>{routes(userLoggedIn)}</Router>
  	 	</Provider>
     </StyleRoot>
 ), document.getElementById( CONSTS.APP_DOM_CONTAINER ));

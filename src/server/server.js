@@ -41,14 +41,13 @@ if (env === 'development'){
     app.use('/assets', proxy(url.parse('http://localhost:'+ CONSTS.DEV_SERVER_PORT +'/assets')));
 }
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  next(err);
-});
-
 app.use('/assets', express.static(__dirname + '/../../dist/public'));
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+})); 
+
 app.use(cookieParser());
 app.use(cookieSession({secret:"FLDS432JB432HJLHFBGDSJKLGFD"}));
 

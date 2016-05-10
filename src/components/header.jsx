@@ -26,6 +26,7 @@ class Header extends React.Component {
 			    	<li><Link to="/streams" className="waves-effect waves-block waves-light">Streams</Link></li>
 			    	<li><Link to="/games" className="waves-effect waves-block waves-light">Games</Link></li>
 			    	{ user.userLoggedIn ? <li><Link to="/follows" className="waves-effect waves-block waves-light">Follows</Link></li> : null }
+			    	{ user.userLoggedIn ? <li><Link to="/profile" className="waves-effect waves-block waves-light">Profile</Link></li> : null }
 			    	{ !user.userLoggedIn ? <li><a href="/auth/twitch" className="waves-effect waves-block waves-light">Login</a></li> : null }
 			    </ul>
 			  </div>

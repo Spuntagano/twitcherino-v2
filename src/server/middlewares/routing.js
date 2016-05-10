@@ -14,6 +14,8 @@ function getRootComponent(renderProps, userLoggedIn) {
 
   const store = configureStore({
     user: {
+      isFetching: false,
+      userInfo: {},
       userLoggedIn
     }
   });
@@ -33,11 +35,11 @@ function getRootComponent(renderProps, userLoggedIn) {
 }
 
 export default function(req, res) {
-  let location = createLocation(req.url);
+  const location = createLocation(req.url);
   const userLoggedIn = _.isObject(req.user);
 
   return new Promise( (resolve, reject) => {
-    match({ routes, location }, (error, redirectLocation, renderProps) => {
+    match({ routes: routes(userLoggedIn), location }, (error, redirectLocation, renderProps) => {
       if (redirectLocation) {
         res.status(301).redirect(redirectLocation.pathname + redirectLocation.search);
       }else if (error) {

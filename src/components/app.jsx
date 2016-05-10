@@ -1,8 +1,9 @@
 import React from 'react';
 import Header from './header';
 import Footer from './footer';
+import isBrowser from '../utils/is-browser';
 
-if (process.env.BROWSER) {
+if (isBrowser) {
 	require('materialize-css/dist/css/materialize.min.css');
 }
 

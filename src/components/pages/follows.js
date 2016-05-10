@@ -15,16 +15,14 @@ class Follows extends React.Component {
 
 	componentDidMount() {
 	  	const { dispatch, user, streams } = this.props;
-	  	dispatch( fetchUserIfNeeded() );
-	  	while(user.isFetching){}
 
-  		dispatch( fetchFollowedStreamsIfNeeded(streams.numberStreamsFetched) );
+		dispatch( fetchFollowedStreamsIfNeeded(streams.numberStreamsFetched) );
 	}
 
 	componentDidUpdate() {
 		const { dispatch, streams } = this.props;
 		onScroll( () => {
-		    dispatch( fetchFollowedStreamsIfNeeded(streams.numberStreamsFetched) );
+	    	dispatch( fetchFollowedStreamsIfNeeded(streams.numberStreamsFetched) );
 		});
 	}
 
@@ -35,7 +33,8 @@ class Follows extends React.Component {
 	}
 
 	renderStreams() {
-		const { streams } = this.props;
+		const { streams, user } = this.props;
+
 		if (!_.isUndefined(streams.streamList)){
 			return (<StreamList streams={streams.streamList} />);
 		}
