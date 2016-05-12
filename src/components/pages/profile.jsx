@@ -24,15 +24,12 @@ class Profile extends React.Component {
 
   	render() {
   		const { user } = this.props;
-  		let initialValues = {};
+		let initialValues = {
+		    userId: user.userInfo.userId,
+		    twitchUsername: user.userInfo.twitchUsername,
+		    accessToken: user.userInfo.accessToken
+  		};
 
-  		if (user && user.userInfo){
-			initialValues = {
-			    userId: user.userInfo.userId,
-			    twitchUsername: user.userInfo.twitchUsername,
-			    accessToken: user.userInfo.accessToken
-	  		};
-  		}
 		return (
 			<div>
 				<h3>Profile</h3>

@@ -1,5 +1,6 @@
 import CONSTS from '../utils/consts';
 import request from 'superagent';
+import _ from 'underscore';
 
 function requestUser() {
 	return {
@@ -7,10 +8,12 @@ function requestUser() {
 	};
 }
 
-function receiveUser(json) {
+function receiveUser(res) {
+	const body = _.has(res, 'body') && typeof res.body === 'object' ? res.body : {};
+
 	return {
 		type: CONSTS.ACTIONS.RECEIVE_USER,
-		user: json,
+		user: body,
 		receivedAt: Date.now(),
 	};
 }
@@ -23,7 +26,7 @@ function fetchUser() {
 		.set('Accept', 'application/json')
 		.end((err, res) => {
 			if (!err){
-				dispatch(receiveUser(res.body));
+				dispatch(receiveUser(res));
 			}
 		});
 	};
@@ -66,10 +69,10 @@ function updatingUser() {
 	};
 }
 
-function updatedUser(json) {
+function updatedUser(user) {
 	return {
 		type: CONSTS.ACTIONS.UPDATED_USER,
-		userInfo: json,
+		userInfo: user,
 		receivedAt: Date.now(),
 	};
 }

@@ -1,5 +1,6 @@
 import CONSTS from '../utils/consts';
 import request from 'superagent';
+import _ from 'underscore';
 
 function requestStreams() {
   return {
@@ -13,10 +14,12 @@ export function clearStreamList() {
   };
 }
 
-function receiveStreams(json, numberStreamsFetched) {
+function receiveStreams(res, numberStreamsFetched) {
+  const streams = _.has(res.body, 'streams') && res.body.streams instanceof Array ? res.body.streams : [];
+
   return {
     type: CONSTS.ACTIONS.RECEIVE_STREAMS,
-    streamList: json.streams || [],
+    streamList: streams,
     receivedAt: Date.now(),
     numberStreamsFetched
   };
@@ -34,7 +37,7 @@ function fetchStreams(numberStreamsFetched) {
 	  .set('Accept', 'application/json')
 	  .end((err, res) => {
 	  	if (!err){
-	    	dispatch(receiveStreams(res.body, numberStreamsFetched));
+	    	dispatch(receiveStreams(res, numberStreamsFetched));
 	  	}
 	  });
   };
@@ -53,7 +56,7 @@ function fetchStreamsByGame(numberStreamsFetched, game) {
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (!err){
-        dispatch(receiveStreams(res.body, numberStreamsFetched));
+        dispatch(receiveStreams(res, numberStreamsFetched));
       }
     });
   };
@@ -71,7 +74,7 @@ function fetchFollowedStreams(numberStreamsFetched) {
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (!err){
-        dispatch(receiveStreams(res.body, numberStreamsFetched));
+        dispatch(receiveStreams(res, numberStreamsFetched));
       }
     });
   };

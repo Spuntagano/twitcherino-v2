@@ -2,6 +2,7 @@ import passport from 'passport';
 import TwitchtvStrategy from 'passport-twitch';
 import AWS from 'aws-sdk';
 import _ from 'underscore';
+import config from '../../../config';
 
 export default function(app) {
 	app.use(passport.initialize());
@@ -9,10 +10,10 @@ export default function(app) {
 	const dc = new AWS.DynamoDB.DocumentClient();
 
 	passport.use(new TwitchtvStrategy.Strategy({
-		clientID: 'ooq4s9m1tk6rhws89qgy6xlhvxnnm1k',
-		clientSecret: 'q71cphbiro9r5rqc1lnwos907heucq8',
-		callbackURL: 'http://localhost:3000/auth/twitch/callback',
-		scope: ['user_read', 'user_follows_edit'],
+		clientID: config.CLIENT_ID,
+		clientSecret: config.CLIENT_SECRET,
+		callbackURL: config.PASSPORT_CALLBACK_URL,
+		scope: config.PASSPORT_SCOPE,
 		passReqToCallback : true
 	},
 	(req, accessToken, refreshToken, profile, done) => {

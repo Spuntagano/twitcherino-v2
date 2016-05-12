@@ -1,5 +1,6 @@
 import CONSTS from '../utils/consts';
 import request from 'superagent';
+import _ from 'underscore';
 
 function requestGames() {
   return {
@@ -13,10 +14,12 @@ export function clearGameList() {
   };
 }
 
-function receiveGames(json, numberGamesFetched) {
+function receiveGames(res, numberGamesFetched) {
+  const games = _.has(res.body, 'games') && res.body.games instanceof Array ? res.body.games : [];
+
   return {
     type: CONSTS.ACTIONS.RECEIVE_GAMES,
-    gameList: json.games || [],
+    gameList: games,
     receivedAt: Date.now(),
     numberGamesFetched
   };
@@ -34,7 +37,7 @@ function fetchGames(numberGamesFetched) {
 	  .set('Accept', 'application/json')
 	  .end((err, res) => {
 	  	if (!err){
-	    	dispatch(receiveGames(res.body, numberGamesFetched));
+	    	dispatch(receiveGames(res, numberGamesFetched));
 	  	}
 	  });
   };

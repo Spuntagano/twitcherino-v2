@@ -23,11 +23,12 @@ export function getUser(req, res){
 
 		dc.get(params, function(err, data) {
 		    if (err) {
-		    	console.log(err);
+		    	res.send(err);
 		    } else {
+		    	const Item = _.has(data, 'Item') && typeof data.Item === 'object' ? data.Item : {};
 		    	res.send({
 		    		userLoggedIn: true,
-		    		userInfo: data.Item
+		    		userInfo: Item
 		    	});
 		    }
 		});
@@ -60,7 +61,7 @@ export function putUser(req, res){
 
 		dc.put(params, function(err, data) {
 		    if (err) {
-		    	console.log(err);
+		    	res.send(err);
 		    } else {
 		    	res.status(200);
 		    	res.send({

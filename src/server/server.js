@@ -16,6 +16,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import AWS from 'aws-sdk';
+import config from '../../config';
 
 const compiler = webpack(webpackConfig);
 const app = express();
@@ -35,10 +36,10 @@ if (env === 'development'){
         publicPath: "/assets/",
         stats: { colors: true }
     });
-    server.listen(CONSTS.DEV_SERVER_PORT, "localhost", function() {});
-    console.log('Dev server listening on ', CONSTS.DEV_SERVER_PORT);
+    server.listen(config.DEV_SERVER_PORT, "localhost", function() {});
+    console.log('Dev server listening on ', config.DEV_SERVER_PORT);
 
-    app.use('/assets', proxy(url.parse('http://localhost:'+ CONSTS.DEV_SERVER_PORT +'/assets')));
+    app.use('/assets', proxy(url.parse('http://localhost:'+ config.DEV_SERVER_PORT +'/assets')));
 }
 
 app.use('/assets', express.static(__dirname + '/../../dist/public'));
@@ -49,7 +50,7 @@ app.use(bodyParser.urlencoded({
 })); 
 
 app.use(cookieParser());
-app.use(cookieSession({secret:"FLDS432JB432HJLHFBGDSJKLGFD"}));
+app.use(cookieSession({secret: config.COOKIE_SESSION_SECRET}));
 
 passport(app);
 routes(app);
