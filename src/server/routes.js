@@ -1,5 +1,5 @@
 import passport from 'passport';
-import { getUser, putUser } from './api/user.js';
+import { getUser, postUser, putUser } from './api/user.js';
 import { gateway } from './api/gateway.js';
 
 export default function(app) {
@@ -12,6 +12,7 @@ export default function(app) {
 	);
 
 	app.get('/api/user', getUser);
+	app.post('/api/user', postUser);
 	app.put('/api/user', putUser);
 	app.get('/api/gateway/:path', gateway);
 }

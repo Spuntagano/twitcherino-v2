@@ -1,6 +1,6 @@
 import path from'path';
 import webpack from 'webpack';
-import CONSTS from './src/utils/consts';
+import config from './config';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const env = process.env.NODE_ENV;
@@ -14,10 +14,10 @@ let plugins = [new ExtractTextPlugin("style.css", {
 if (env === 'development'){
 	entry = [	
 				'./root',
-		 		'webpack-dev-server/client?http://localhost:' + CONSTS.DEV_SERVER_PORT,
+		 		'webpack-dev-server/client?http://localhost:' + config.DEV_SERVER_PORT,
 		 		'webpack/hot/only-dev-server',
 			];
-	publicPath = 'http://localhost:'+ CONSTS.DEV_SERVER_PORT +'/assets/';
+	publicPath = 'http://localhost:'+ config.DEV_SERVER_PORT +'/assets/';
 	plugins = [
 		new webpack.HotModuleReplacementPlugin(),
 		new ExtractTextPlugin("style.css", {

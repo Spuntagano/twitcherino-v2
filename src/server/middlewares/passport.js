@@ -1,6 +1,7 @@
 import passport from 'passport';
 import TwitchtvStrategy from 'passport-twitch';
 import AWS from 'aws-sdk';
+import uuid from 'uuid';
 import _ from 'underscore';
 import config from '../../../config';
 
@@ -17,41 +18,49 @@ export default function(app) {
 		passReqToCallback : true
 	},
 	(req, accessToken, refreshToken, profile, done) => {
-		const params = {
+		const generatedId = uuid.v4();
+
+		const paramsGet = {
+		    TableName: 'Users',
+		    IndexName: 'twitchUsername-index',
+		    "KeyConditions": {
+                    "twitchUsername": {
+                        "AttributeValueList": [profile.username],
+                        "ComparisonOperator": "EQ"
+                    }
+                }
+
+		};
+
+		const paramsNew = {
 		    TableName: 'Users',
 		    Key:{
-		    	'userId': 1
+		    	'userId': generatedId
 		    },
 		    Item:{
-		    	'userId': 1,
+		    	'userId': generatedId,
 		    	'twitchUsername': profile.username,
 		    	'accessToken': accessToken
 		    }
 		};
 
-		dc.put(params, function(err, data) {
-		    if (err) {
-		        done(null, false);
-		    } else {
-		        done(null, profile);
-		    }
-		});
-/*
-		dc.get(params, function(err, data) {
+		dc.query(paramsGet, function(err, data) {
 		    if (err) {
 		    	done(null, false);
-		    } else if (_.isEmpty(data)){
-	        	dc.put(params, function(err, data) {
+		    } else if (data && _.isEmpty(data.Items)){
+	        	dc.put(paramsNew, function(err, data) {
 	        	    if (err) {
 	        	        done(null, false);
 	        	    } else {
+	        	    	profile.userId = generatedId;
 	        	        done(null, profile);
 	        	    }
 	        	});
 		    } else {
+		    	profile.userId = data.Items[0].userId;
 		        done(null, profile);
 		    }
-		});*/
+		});
 	}));
 
 	passport.serializeUser( (user, done) => {

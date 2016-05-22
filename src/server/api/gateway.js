@@ -8,16 +8,17 @@ export function gateway(req, res){
 	const path = _.has(req.params, 'path') && typeof req.params.path === 'string' ? req.params.path : '';
 	const query = _.has(req, 'query') && typeof req.query === 'object' ? req.query : {};
 	const username = _.has(req.user, 'username') && typeof req.user.username === 'string' ? req.user.username : '';
+	const userId = _.has(req.user, 'userId') && typeof req.user.userId === 'string' ? req.user.userId : '';
 	const dc = new AWS.DynamoDB.DocumentClient();
 
 	if (username){
 		const params = {
 		    TableName: 'Users',
 		    Key:{
-		    	'userId': 1
+		    	'userId': userId
 		    },
 		    Item:{
-		    	'userId': 1,
+		    	'userId': userId,
 		    	'twitchUsername': username
 		    }
 		};

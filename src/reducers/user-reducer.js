@@ -18,7 +18,7 @@ export function user(state = initialState, action = '') {
 			};
 		case CONSTS.ACTIONS.RECEIVE_USER:
 			const userLoggedIn = _.has(action.user, 'userLoggedIn') && typeof action.user.userLoggedIn === 'boolean' ? action.user.userLoggedIn : false;
-			const userId = _.has(action.user.userInfo, 'userId') && typeof action.user.userInfo.userId === 'number' ? action.user.userInfo.userId : 0;
+			const userId = _.has(action.user.userInfo, 'userId') && typeof action.user.userInfo.userId === 'string' ? action.user.userInfo.userId : '';
 			const twitchUsername = _.has(action.user.userInfo, 'twitchUsername') && typeof action.user.userInfo.twitchUsername === 'string' ? action.user.userInfo.twitchUsername : '';
 			const accessToken = _.has(action.user.userInfo, 'accessToken') && typeof action.user.userInfo.accessToken === 'string' ? action.user.userInfo.accessToken : '';
 
