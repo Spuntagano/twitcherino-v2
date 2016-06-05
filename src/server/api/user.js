@@ -3,6 +3,7 @@ import _ from 'underscore';
 import uuid from 'uuid';
 
 export function getUser(req, res){
+	console.log(req.user);
 	const dc = new AWS.DynamoDB.DocumentClient();
 	const username = _.has(req.user, 'username') && typeof req.user.username === 'string' ? req.user.username : '';
 	const userId = _.has(req.user, 'userId') && typeof req.user.userId === 'string' ? req.user.userId : '';

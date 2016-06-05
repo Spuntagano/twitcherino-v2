@@ -2,3 +2,4 @@ prop types
 api error/empty response/unautenticated
 json formatting error
 server auth redirect
+passport has()
